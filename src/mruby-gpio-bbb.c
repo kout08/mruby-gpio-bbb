@@ -2,6 +2,7 @@
 #include <string.h>
 #include "mruby.h"
 #include "mruby/value.h"
+#include "./set_bbbpin.h"
 
 static mrb_value 
 f_gpio_pinmode(mrb_state *mrb, mrb_value self)
@@ -9,6 +10,7 @@ f_gpio_pinmode(mrb_state *mrb, mrb_value self)
 	char buf[100];
 	mrb_int pin, dir;
 	mrb_get_args(mrb, "ii", &pin, &dir);
+	pin=set_bbbpin(pin);
 
 	if( dir == 1 ){  // output
 		sprintf(buf, "echo %d > /sys/class/gpio/export", pin);
@@ -31,6 +33,7 @@ f_gpio_dwrite(mrb_state *mrb, mrb_value self)
 	char buf[100];
 	mrb_int pin, value;
 	mrb_get_args(mrb, "ii", &pin, &value);
+	pin=set_bbbpin(pin);
 
 	sprintf(buf, "echo %d > /sys/class/gpio/gpio%d/value", value, pin);
 	system(buf);
