@@ -20,7 +20,7 @@ mruby-gpio-bbb
 - ピンの動作を入力または出力として設定する  
 - パラメータ
 
-        pin : 設定したいピンの番号
+        pin  : 設定したいピンの番号
         mode : 入力はGPIO::INPUT、出力はGPIO::OUTPUTを指定
 
 - 戻り値 
@@ -31,8 +31,8 @@ mruby-gpio-bbb
 - ピンの出力をHIGHかLOWに指定する  
 - パラメータ
 
-        pin : 設定したいピンの番号
-        value :  HIGHの場合はGPIO::HIGH、LOWの場合はGPIO::LOW
+        pin   : 設定したいピンの番号
+        value : HIGHの場合はGPIO::HIGH、LOWの場合はGPIO::LOW
 
 - 戻り値
 
