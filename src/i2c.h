@@ -83,14 +83,14 @@ int stdRead(int fd, int bsize)
 
 	ioctl(fd, I2C_SLAVE, 0x40);
 
-	ret = read(fd, buf, (bsize*2));
-	if(ret != bsize*2){
+	ret = read(fd, buf, bsize);
+	if(ret != bsize){
 		printf("Read only %d byte\n", ret);
 		return -1;
 	}
 
-	for(i=0 ; i<(bsize*2); i++)
-		data += buf[(bsize*2)-1-i]*powInt(16,i);
+	for(i=0 ; i < bsize ; i++)
+		data += buf[bsize-1-i] * powInt(16,i);
 
 	return data;
 }
