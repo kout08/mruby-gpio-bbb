@@ -11,17 +11,25 @@ f_gpio_pinmode(mrb_state *mrb, mrb_value self)
 	mrb_int pin, dir;
 	mrb_get_args(mrb, "ii", &pin, &dir);
 	pin=set_bbbpin(pin);
+	if( pin == -1 ){
+		printf("Error pinNo.\n");
+		return mrb_fixnum_value(-1);
+	}
 
 	if( dir == 1 ){  // output
 		sprintf(buf, "echo %d > /sys/class/gpio/export", pin);
-		system(buf);
+		if( system(buf) != 0 )
+			return mrb_fixnum_value(-1);
 		sprintf(buf, "echo out > /sys/class/gpio/gpio%d/direction", pin);
-		system(buf);
+		if( system(buf) != 0 )
+			return mrb_fixnum_value(-1);
 	} else {         // input
 		sprintf(buf, "echo %d > /sys/class/gpio/export", pin);
-		system(buf);
+		if( system(buf) != 0 )
+			return mrb_fixnum_value(-1);
 		sprintf(buf, "echo in > /sys/class/gpio/gpio%d/direction", pin);
-		system(buf);
+		if( system(buf) != 0 )
+			return mrb_fixnum_value(-1);
 	}
 
 	return mrb_nil_value();
@@ -34,9 +42,14 @@ f_gpio_dwrite(mrb_state *mrb, mrb_value self)
 	mrb_int pin, value;
 	mrb_get_args(mrb, "ii", &pin, &value);
 	pin=set_bbbpin(pin);
+	if( pin == -1 ){
+		printf("Error pinNo.\n");
+		return mrb_fixnum_value(-1);
+	}
 
 	sprintf(buf, "echo %d > /sys/class/gpio/gpio%d/value", value, pin);
-	system(buf);
+	if( system(buf) != 0 )
+		return mrb_fixnum_value(-1);
 
 	return mrb_nil_value();
 }
@@ -51,14 +64,17 @@ f_gpio_dread(mrb_state *mrb, mrb_value self)
 
 	sprintf(buf, "cat /sys/class/gpio/gpio%d/value", pin);
 	fval=popen(buf,"r");
-	fgets(chval,sizeof(chval),fval);
+	if(fgets(chval,sizeof(chval),fval) == NULL)
+		return mrb_fixnum_value(-1);
 	pclose(fval);
 
-	if(strcmp(chval,"0\n")==0){
+	if( strcmp(chval,"0\n") == 0 ){
 		value=0;
-	}else if(strcmp(chval,"1\n")==0){
+	} else if( strcmp(chval,"1\n") == 0 ){
 		value=1;
-	}else{	//error
+	} else {	//error
+		printf("Error digitalRead\n");
+		return mrb_fixnum_value(-1);
 	}
 	return mrb_fixnum_value(value);
 }
