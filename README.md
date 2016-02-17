@@ -14,7 +14,7 @@ mruby-gpio-bbb
 
         make
 
-メソッド
+使用可能なメソッド
 ----------------------
 ###Gpio.pinMode(int pin, int mode)
 - ピンの動作を入力または出力として設定する  
@@ -28,21 +28,22 @@ mruby-gpio-bbb
         なし(エラーの場合は-1を返す)
 
 ###Gpio.digitalWrite(int pin, int value)
-	- ピンの出力をHIGHかLOWに指定する  
-	- パラメータ
+- ピンの出力をHIGHかLOWに指定する  
+- パラメータ
 
         pin : 設定したいピンの番号
         value :  HIGHの場合はGPIO::HIGH、LOWの場合はGPIO::LOW
 
-	- 戻り値
+- 戻り値
 
         なし(エラーの場合は-1を返す)
 
 ### Gpio.digitalRead(int pin)
-	- 指定したピンの値を読み取る
-	- パラメータ
+- 指定したピンの値を読み取る
+- パラメータ
 
         pin : 読み取りたいピンの番号
-	- 戻り値
+
+- 戻り値
 
         HIGHなら1、LOWなら0を返す
