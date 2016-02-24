@@ -1,49 +1,53 @@
 mruby-gpio-bbb
 =====================
-- Beale Bone Black用のmruby汎用入出力ライブラリ
+- GPIO mrbgem for BeagleBoneBlack
 
-##インストール方法
-- mrubyをダウンロードする
+##Installation
+- Download mruby
 
         git clone http://github.com/mruby/mruby
 
-- mruby/build\_config.rb の conf.gembox 'default' の次の行に、下記の設定を追加する
+
+- Edit mruby/build\_config.rb  
+Insert the following one line after "conf.gembox 'default'" in `build_config.rb`
 
         conf.gem :github => 'https://github.com/kout08/mruby-gpio-bbb'
-- mrubyをビルドする
+
+
+- Build mruby
 
         make
 
-使用可能なメソッド
+Method list
 ----------------------
 ###Gpio.pinMode(int pin, int mode)
-- ピンの動作を入力または出力として設定する  
-- パラメータ
+- Setting pin mode INPUT or OUTPUT
+- Parameters
 
-        pin  : 設定したいピンの番号
-        mode : 入力はGPIO::INPUT、出力はGPIO::OUTPUTを指定
+        pin  : the pin number
+        mode : GPIO::INPUT or GPIO::OUTPUT
 
-- 戻り値 
+- Returns 
 
-        なし(エラーの場合は-1を返す)
+        None
 
 ###Gpio.digitalWrite(int pin, int value)
-- ピンの出力をHIGHかLOWに指定する  
-- パラメータ
+- Write HIGH or LOW value to a digital pin
+- Parameters
 
-        pin   : 設定したいピンの番号
-        value : HIGHの場合はGPIO::HIGH、LOWの場合はGPIO::LOW
+        pin   : the pin number
+        value : GPIO::HIGH or GPIO::LOW
 
-- 戻り値
+- Returns
 
-        なし(エラーの場合は-1を返す)
+        None
 
 ### Gpio.digitalRead(int pin)
-- 指定したピンの値を読み取る
-- パラメータ
+- Reads the value from a digital pin, either HIGH or LOW.
+- Parameters
 
-        pin : 読み取りたいピンの番号
+        pin : the pin number
 
-- 戻り値
+- Returns
 
-        HIGHなら1、LOWなら0を返す
+        1(HIGH) or 0(LOW)
